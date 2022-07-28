@@ -1,0 +1,100 @@
+h2{
+    color: #39ff14;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 1rem;
+}
+
+input,select,button{
+    margin-top: 5px;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    outline-color: #39ff14;
+    border: none;
+    box-shadow: none;
+    border-radius: 5px;
+}
+
+label{
+    margin-bottom: 5px;
+}
+
+button {
+    background-color: #39ff14;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    padding: 1rem;
+}
+
+.main{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.heading{
+    margin: 0;
+    margin-bottom: 1rem;
+    
+}
+
+form{
+    height: fit-content;
+    padding: 1rem;
+    background-color:#212121;
+    margin-top: 1rem;
+    flex: 1;
+}
+.form-items{
+    flex: 1;
+    margin-bottom:1rem ;
+}
+
+.leader-board{
+    flex: 1;
+    margin: 1rem 0 0 1rem;
+    padding: 1rem;
+    background-color: #212121;
+}
+.leader-list{
+    margin: 0;
+    padding: 0;
+}
+.leader-data{
+    display: flex;
+    justify-content: space-between;
+}
+.all-votes{
+    margin-top: 1rem;
+    background-color: #212121;
+    padding-bottom: 1rem;
+}
+.all-votes h2{
+   margin: 0;
+   margin: 1rem 0;
+}
+
+table{
+    margin: 0 auto;
+}
+
+td{
+    text-align: center;
+    width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+th{
+    color: #39ff14;
+    padding: 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .container {
+            flex-direction: column;
+    }
+    .leader-board {
+            margin-left: 0;
+    }
+}
