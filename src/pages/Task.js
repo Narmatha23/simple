@@ -3,6 +3,25 @@ import { useState } from 'react';
 import allVotes from '../Data/votes';
 import './Task.css';
 
+    // options
+    const allOptions = [
+        "The Office",
+        "Trailer Park Boys",
+        "Shrek",
+        "Rick And Morty",
+        "Brooklyn 99",
+        "Parks and Recreation",
+        "F.R.I.E.N.D.S",
+        "Bojack Horseman",
+    ];
+    
+    const options = allOptions;
+    
+    const initalState = {
+    voter: "",
+    points: "",
+    option: options[0],
+    };
 
 function getTotalScore(votes) {
     const scoreMap = votes.reduce((acc, val) => {
@@ -22,40 +41,29 @@ function getTotalScore(votes) {
 
 
 const Task = () =>{
+
     const [votes, setVotes] = useState(allVotes);
 
     const [form, setForm] = useState(initalState);
 
     const votesHash = getTotalScore(votes);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const timestamp = new Date().getTime();
-        let {
-            voter,
-            option,
-            points
-        } = form;
-        points = points * 1;
-
-        setVotes((prev) => [...prev, {
-            timestamp,
-            voter,
-            option,
-            points
-        }]);
+        let { voter, option, points } = form;
+        points = points * 1;   
+        setVotes((prev) => [...prev, { timestamp, voter, option, points }]);
         setForm(initalState);
-    };
+      };
+    
+      const handleChange = (e) => {
+        const { name, value } = e.target;
+       
+        setForm((prev) => ({ ...prev, [name]: value }));
+      };
 
-    const handleChange = (e) => {
-        const {
-            name,
-            value
-        } = e.target;
-        setForm((prev) => ({ ...prev,
-            [name]: value
-        }));
-    };
-
+   
     
     return(
       <div className="container">
@@ -63,14 +71,15 @@ const Task = () =>{
             <form onSubmit={handleSubmit}>
                 <h2 className="heading"> Voting Booth</h2>
                 <div className="form-items">
-                    <label htmlFor='voter'>Your Name</label>
-                    <input id='voter'
-                    name='voter'
-                     type='text'
-                     required={true}
-                     vale = {form.voter}
-                     onChange={handleChange}
-                    />
+                <label htmlFor="voter">Your name</label>
+            <input
+              id="voter"
+              type="text"
+              name="voter"
+              required={true}
+              value={form.voter}
+              onChange={handleChange}
+            />
                 </div>
                 <div className="form-items">
                 <label htmlFor='points'>Points(1-100)</label>
@@ -88,27 +97,20 @@ const Task = () =>{
                     }/>
                 </div>
                 <div className="form-items">
-                <label htmlFor='select'>Options</label>
-                    <select id='options'
-                    placeholder='Select Your Options'
-                    value = {
-                        form.option
-                    }
-                    onChange = {
-                        handleChange
-                    }
-                    >
-                    
-                        {
-                            options.map((i) => (
-                               <option name = "option"
-                               key={i}
-                               value={i}>
-                                {i}
-                               </option>
-                            ))
-                        }
-                   </select>
+                <label htmlFor="option">Option</label>
+            <select
+              name="option"
+              id="option"
+              placeholder="Select your sitcom"
+              value={form.option}
+              onChange={handleChange}
+            >
+              {options.map((i) => (
+                <option name="option" key={i} value={i}>
+                  {i}
+                </option>
+              ))}
+            </select>
                 </div>
                    
                 
@@ -117,26 +119,21 @@ const Task = () =>{
             <div className='leader-board'>
                 <h2 className='board-name'>LeaderBoard</h2>
                 <ol className='leader-list'>
-                    {
-                        Object.entries(votesHash).sort((a,b) =>{
-                            return b[1] - a[1];
-                        }).map(([optionName,points],index) => (
-                            <li className='leader-data' key = {index}>
-                                <div>
-                                    {""}
-                                    <span>
-                                       #{
-                                        index + 1
-                                       }
-                                    </span>
-                                    {optionName}
-                                </div>
-                                <div>{points}</div>
-                            </li>
-                        )
-                          
-                        )
-                    }
+                {Object.entries(votesHash)
+              .sort((a, b) => {
+                return b[1] - a[1];
+              })
+              .map(([optionName, points], index) => (
+                <li className='leader-data' key={index}>
+                  <div>
+                    {" "}
+                    <span>#{index + 1} </span>
+                    {optionName}
+                  </div>
+                  <div>{points} Points</div>
+                </li>
+              ))}
+                    
                 </ol>
             </div>
         </section>
@@ -150,19 +147,14 @@ const Task = () =>{
                     <th>Points</th>
                 </thead>
                 <tbody>
-                    {votes.map(({
-                        timestamp,
-                        voter,
-                        points,
-                        option
-                    }) => (
-                        <tr>
-                            <td>{new Date(timestamp).toLocaleString()}</td>
-                            <td>{voter|| "anonymous"}</td>
-                            <td>{option}</td>
-                            <td>{points}</td>
-                        </tr>
-                    ))}
+                {votes.map(({ timestamp, voter, points, option }) => (
+              <tr>
+                <td>{new Date(timestamp).toLocaleString()}</td>
+                <td>{voter || "anonymous"}</td>
+                <td>{option}</td>
+                <td>{points}</td>
+              </tr>
+            ))}
                 </tbody>
             </table>
         </div>
@@ -173,22 +165,4 @@ const Task = () =>{
 export default Task;
 
 
-    // options
-    const allOptions = [
-        "The Office",
-        "Trailer Park Boys",
-        "Shrek",
-        "Rick And Morty",
-        "Brooklyn 99",
-        "Parks and Recreation",
-        "F.R.I.E.N.D.S",
-        "Bojack Horseman",
-    ];
     
-    const options = allOptions;
-
-const initalState = {
-    voter: "",
-    points: "",
-    option: options[0],
-};
