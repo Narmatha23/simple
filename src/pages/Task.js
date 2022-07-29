@@ -3,6 +3,7 @@ import { useState } from 'react';
 import allVotes from '../Data/votes';
 import './Task.css';
 
+
     // options
     const allOptions = [
         "The Office",
@@ -22,6 +23,10 @@ import './Task.css';
     points: "",
     option: options[0],
     };
+
+ // music  
+const music = new Audio('./audio/laugh.mp3');
+
 
 function getTotalScore(votes) {
     const scoreMap = votes.reduce((acc, val) => {
@@ -52,7 +57,12 @@ const Task = () =>{
         e.preventDefault();
         const timestamp = new Date().getTime();
         let { voter, option, points } = form;
-        points = points * 1;   
+        points = points * 1; 
+        if (form.option === "F.R.I.E.N.D.S") {
+          music.play();
+          return;
+        }
+        
         setVotes((prev) => [...prev, { timestamp, voter, option, points }]);
         setForm(initalState);
       };
@@ -62,9 +72,7 @@ const Task = () =>{
        
         setForm((prev) => ({ ...prev, [name]: value }));
       };
-
-   
-    
+  
     return(
       <div className="container">
         <section className="main">
