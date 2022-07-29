@@ -65,8 +65,7 @@ form{
     display: flex;
     justify-content: space-between;
 }
-.all-votes{
-   
+.all-votes{ 
     margin-top: 1rem;
     background-color: #212121;
     padding-bottom: 1rem;
